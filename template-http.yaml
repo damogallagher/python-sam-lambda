@@ -20,14 +20,22 @@ Parameters:
 Resources:
 
   Api:
-    Type: AWS::Serverless::Api
+    Type: AWS::Serverless::HttpApi
     Properties:
       StageName: !Ref ExecEnv
-      Cors:
-        AllowMethods: "'POST, GET, DELETE, PUT, OPTIONS'"
-        AllowHeaders: "'*'"
-        AllowOrigin: "'http://*, https://*, *'"
-        MaxAge: "'600'"
+      CorsConfiguration:
+        AllowOrigins:
+          - "http://*"
+          - "https://*"
+        AllowHeaders:
+          - "'*'"
+        AllowMethods:
+          - "GET"
+          - "POST"
+          - "DELETE"
+          - "PUT"
+          - "OPTIONS"          
+        MaxAge: 600
 
   SayHelloFunction:
     Type: AWS::Serverless::Function
@@ -41,11 +49,11 @@ Resources:
           EXEC_ENV: !Ref ExecEnv
       Events:
         SayHello:
-          Type: Api
+          Type: HttpApi
           Properties:
             Path: /hello
             Method: get
-            RestApiId: !Ref Api
+            ApiId: !Ref Api
 
   FetchS3BucketsFunction:
     Type: AWS::Serverless::Function
@@ -71,11 +79,11 @@ Resources:
           Resource: '*'
       Events:
         FetchS3Buckets:
-          Type: Api
+          Type: HttpApi
           Properties:
             Path: /fetch-s3-buckets
             Method: get
-            RestApiId: !Ref Api 
+            ApiId: !Ref Api 
             
   FetchSpecificCloudWatchMetricsFunction:
     Type: AWS::Serverless::Function
@@ -96,11 +104,11 @@ Resources:
           Resource: '*'
       Events:
         FetchSpecificCloudWatchMetrics:
-          Type: Api
+          Type: HttpApi
           Properties:
             Path: /fetch-specific-cloudwatch-metrics
             Method: get      
-            RestApiId: !Ref Api 
+            ApiId: !Ref Api 
                  
   FetchCloudWatchMetricsFunction:
     Type: AWS::Serverless::Function
@@ -121,11 +129,11 @@ Resources:
           Resource: '*'
       Events:          
         FetchCloudWatchMetrics:
-          Type: Api
+          Type: HttpApi
           Properties:
             Path: /fetch-cloudwatch-metrics
             Method: post
-            RestApiId: !Ref Api                          
+            ApiId: !Ref Api                          
   
 
 
