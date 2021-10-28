@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+//const endpoint = 'https://0zwxxxocgi.execute-api.us-east-1.amazonaws.com/Prod/fetch-specific-cloudwatch-metrics';
+//const endpoint = 'https://ux66tf7a72.execute-api.us-east-1.amazonaws.com/Prod/fetch-specific-cloudwatch-metrics';
+const endpoint = 'https://hzr02vaffj.execute-api.us-east-1.amazonaws.com/Prod/fetch-specific-cloudwatch-metrics';
+
+console.log(endpoint)
+
+var jqxhr = $.get( endpoint, function() {
+  alert( "success" );
+})
+  .done(function() {
+    alert( "second success" );
+  })
+  .fail(function(error) {
+      console.log("error:", error)
+    alert( "error" );
+  })
+ 
+  $.ajax({
+            type: "GET",
+            url: endpoint,
+            contentType:"application/json; charset=utf-8",
+            dataType:"json",
+            success: function (data) {
+                alert( "111 second success" );
+            },
+            error: function (data) {
+                alert( "111 error " );
+            }
+        })
+
+
+fetch(endpoint, {
+    mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+}).then(function(response) {
+    console.log('response:', response);
+    console.log('response:', response.body);
+    console.log('response:', response.text());
+    return response.text();
+}).then(function(text) {
+    console.log('Request successful', text);
+}).catch(function(error) {
+    console.log("ERROR")
+    console.log(error);
+});
+</script>
+</head>
+<body>
+Hello
+</body>
+</html>

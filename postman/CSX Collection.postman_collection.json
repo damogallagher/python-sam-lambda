@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "d25979e7-c969-4ecb-85c4-e2d9e295e37f",
+		"name": "CSX Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "fetch-specific-cloudwatch-metrics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://hzr02vaffj.execute-api.us-east-1.amazonaws.com/Prod/fetch-specific-cloudwatch-metrics",
+					"protocol": "https",
+					"host": [
+						"hzr02vaffj",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"fetch-specific-cloudwatch-metrics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetch-cloudwatch-metrics",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n                            {\n                              \"Name\": \"Function\",\n                              \"Value\": \"Scheduler\"\n                            },\n                            {\n                              \"Name\": \"Environment\",\n                              \"Value\": \"csx-nonprod-dataops\"\n                            }\n                        ]"
+				},
+				"url": {
+					"raw": "https://ozc20bp04f.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=SchedulerHeartbeat&period=3660&stat=Sum&label=TempLabel&scanBy=TimestampDescending&previousDays=0 ",
+					"protocol": "https",
+					"host": [
+						"ozc20bp04f",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"fetch-cloudwatch-metrics"
+					],
+					"query": [
+						{
+							"key": "namespace",
+							"value": "AmazonMWAA"
+						},
+						{
+							"key": "metricName",
+							"value": "SchedulerHeartbeat"
+						},
+						{
+							"key": "period",
+							"value": "3660"
+						},
+						{
+							"key": "stat",
+							"value": "Sum"
+						},
+						{
+							"key": "label",
+							"value": "TempLabel"
+						},
+						{
+							"key": "scanBy",
+							"value": "TimestampDescending"
+						},
+						{
+							"key": "previousDays",
+							"value": "0 "
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
