@@ -24,8 +24,20 @@ sam delete --no-prompts --profile csx
 
 Query Parameter | Required| Default Value
 ------------ | ------------- | -------------
-Content from cell 1 | Content from cell 2 | Default
-Content in the first column | Content in the second column| Default
+namespace | Yes | 
+metricName | Yes| 
+period | No | 60
+stat | No| Sum
+
+
+    namespace = event["queryStringParameters"]['namespace'] 
+    metricName = event["queryStringParameters"]['metricName']     
+    period = int(event["queryStringParameters"]['period']) if 'period' in event["queryStringParameters"] else 60 
+    stat = event["queryStringParameters"]['stat'] if 'stat' in event["queryStringParameters"] else 'Sum'      
+    label = event["queryStringParameters"]['label'] if 'label' in event["queryStringParameters"] else 'label'  
+    scanBy = event["queryStringParameters"]['scanBy'] if 'scanBy' in event["queryStringParameters"] else 'TimestampDescending'  
+    previousDays = int(event["queryStringParameters"]['previousDays']) if 'previousDays' in event["queryStringParameters"] else 0  
+
 
 ## Sample request
 *Get hardcoded metrics*
