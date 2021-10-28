@@ -14,6 +14,12 @@ sam deploy
 # Destroy infrastructure
 sam delete --no-prompts --profile csx
 
+# Endpoints
+*/fetch-cloudwatch-metrics*
+*Type:* POST
+*Sample Endpoint:* https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=SchedulerHeartbeat&period=3660&stat=Sum&label=TempLabel&scanBy=TimestampDescending&previousDays=0
+
+
 ## Sample request
 *Get hardcoded metrics*
 
