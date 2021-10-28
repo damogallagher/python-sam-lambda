@@ -22,10 +22,10 @@ sam delete --no-prompts --profile csx
 **Sample Endpoint:** https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=SchedulerHeartbeat&period=3660&stat=Sum&label=TempLabel&scanBy=TimestampDescending&previousDays=0
 
 ## Query Params
-Query Parameter | Required| Default Value
------------- | ------------- | -------------
-namespace | Yes | 
-metricName | Yes| 
+Query Parameter | Required| Default Value| Description
+------------ | ------------- | ------------- | -------------
+namespace | Yes | |A namespace is a container for CloudWatch metrics. Metrics in different namespaces are isolated from each other, so that metrics from different applications are not mistakenly aggregated into the same statistics
+metricName | Yes| | Metrics are the fundamental concept in CloudWatch. A metric represents a time-ordered set of data points that are published to CloudWatch. Think of a metric as a variable to monitor, and the data points as representing the values of that variable over time. For example, the CPU usage of a particular EC2 instance is one metric provided by Amazon EC2. The data points themselves can come from any application or business activity from which you collect data.
 period | No | 60
 stat | No| Sum
 label | No| label
