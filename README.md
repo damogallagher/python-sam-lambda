@@ -28,10 +28,11 @@ namespace | Yes | |https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitorin
 metricName | Yes| | https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric
 period | No | 60 | https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#CloudWatchPeriods
 stat | No| Sum |https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Statistic
-label | No| label |
-scanBy | No| TimestampDescending| How to order the mertrics
-previousDays | No| 0 | Number of days to retrieve metrics for - 0 is curret day, 1 is current day and previous day etc.
+label | No| label | Descriptive lable for the data being returned (e.g. CPUUtilization, peak of ${MAX} was at ${MAX_TIME})
+scanBy | No| TimestampDescending| How to order the mertrics. Valid values are TimestampDescending or TimestampAscending
+previousDays | No| 0 | Number of days to retrieve metrics for - 0 is current day, 1 is current day and previous day etc.
 
+See https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html#API_GetMetricData_Examples for examples
 ## Sample Body  
 ```
 [
