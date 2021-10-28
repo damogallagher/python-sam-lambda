@@ -21,22 +21,30 @@ sam delete --no-prompts --profile csx
 
 **Sample Endpoint:** https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=SchedulerHeartbeat&period=3660&stat=Sum&label=TempLabel&scanBy=TimestampDescending&previousDays=0
 
-
+## Query Params
 Query Parameter | Required| Default Value
 ------------ | ------------- | -------------
 namespace | Yes | 
 metricName | Yes| 
 period | No | 60
 stat | No| Sum
+label | No| label
+scanBy | No| TimestampDescending
+previousDays | No| 0
 
-
-    namespace = event["queryStringParameters"]['namespace'] 
-    metricName = event["queryStringParameters"]['metricName']     
-    period = int(event["queryStringParameters"]['period']) if 'period' in event["queryStringParameters"] else 60 
-    stat = event["queryStringParameters"]['stat'] if 'stat' in event["queryStringParameters"] else 'Sum'      
-    label = event["queryStringParameters"]['label'] if 'label' in event["queryStringParameters"] else 'label'  
-    scanBy = event["queryStringParameters"]['scanBy'] if 'scanBy' in event["queryStringParameters"] else 'TimestampDescending'  
-    previousDays = int(event["queryStringParameters"]['previousDays']) if 'previousDays' in event["queryStringParameters"] else 0  
+## Sample Body  
+```
+[
+  {
+    "Name": "Function",
+    "Value": "Scheduler"
+  },
+  {
+    "Name": "Environment",
+    "Value": "csx-nonprod-dataops"
+  }
+]
+```
 
 
 ## Sample request
