@@ -24,13 +24,13 @@ sam delete --no-prompts --profile csx
 ## Query Params
 Query Parameter | Required| Default Value| Description
 ------------ | ------------- | ------------- | -------------
-namespace | Yes | |A namespace is a container for CloudWatch metrics. Metrics in different namespaces are isolated from each other, so that metrics from different applications are not mistakenly aggregated into the same statistics
-metricName | Yes| | Metrics are the fundamental concept in CloudWatch. A metric represents a time-ordered set of data points that are published to CloudWatch. Think of a metric as a variable to monitor, and the data points as representing the values of that variable over time. For example, the CPU usage of a particular EC2 instance is one metric provided by Amazon EC2. The data points themselves can come from any application or business activity from which you collect data.
-period | No | 60
-stat | No| Sum
-label | No| label
-scanBy | No| TimestampDescending
-previousDays | No| 0
+namespace | Yes | |https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Namespace
+metricName | Yes| | https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric
+period | No | 60 | https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#CloudWatchPeriods
+stat | No| Sum |https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Statistic
+label | No| label |
+scanBy | No| TimestampDescending| How to order the mertrics
+previousDays | No| 0 | Number of days to retrieve metrics for - 0 is curret day, 1 is current day and previous day etc.
 
 ## Sample Body  
 ```
