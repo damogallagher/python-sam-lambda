@@ -22,6 +22,11 @@ sam delete --no-prompts --profile csx
 **Sample Endpoint:** https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=SchedulerHeartbeat&period=3660&stat=Sum&label=TempLabel&scanBy=TimestampDescending&previousDays=0
 
 
+First Header | Second Header
+------------ | -------------
+Content from cell 1 | Content from cell 2
+Content in the first column | Content in the second column
+
 ## Sample request
 *Get hardcoded metrics*
 
