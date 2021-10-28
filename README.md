@@ -47,7 +47,7 @@ previousDays | No| 0
 ```
 
 
-## Sample request
+# Sample requests
 *Get hardcoded metrics*
 
 GET:  https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-specific-cloudwatch-metrics
