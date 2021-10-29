@@ -19,7 +19,6 @@ sam delete --no-prompts --profile csx
 The following query parameters can be sent with all api calls or just use the defaults as per the table
 Query Parameter | Required| Default Value| Description
 ------------ | ------------- | ------------- | -------------
-namespace | Yes | |https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Namespace
 metricName | Yes| | https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric
 period | No | 60 | https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#CloudWatchPeriods
 stat | No| Sum |https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Statistic
@@ -32,25 +31,25 @@ previousDays | No| 0 | Number of days to retrieve metrics for - 0 is current day
 
 **Type:** GET
 
-**Sample Endpoint:** https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-airflow-metrics
+**Sample Endpoint:** https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-airflow-metrics?metricName=OrphanedTasksAdopted
 
 **/fetch-sagemaker-metrics**
 
 **Type:** GET
 
-**Sample Endpoint:** https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-sagemaker-metrics
+**Sample Endpoint:** https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-sagemaker-metrics?metricName=Invocations
 
 **/fetch-custom-sagemaker-metrics**
 
 **Type:** GET
 
-**Sample Endpoint:** https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-custom-sagemaker-metrics
+**Sample Endpoint:** https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-custom-sagemaker-metrics?metricName=MemoryUtilization
 
 **/fetch-s3-metrics**
 
 **Type:** GET
 
-**Sample Endpoint:** https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-s3-metrics
+**Sample Endpoint:** https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-s3-metrics?metricName=NumberOfObjects&bucketName=my-bucket
 
 ## Query Params
 Query Parameter | Required| Description
@@ -61,7 +60,7 @@ bucketName | Yes | Bucket to get metrics for
 
 **Type:** GET
 
-**Sample Endpoint:** https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-api-gateway-metrics
+**Sample Endpoint:** https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-api-gateway-metrics?metricName=4XXError
 
 
 ## OLD Queries
