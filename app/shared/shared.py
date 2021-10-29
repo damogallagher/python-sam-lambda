@@ -1,4 +1,5 @@
 import boto3
+from botocore.config import Config
 import json
 from datetime import date, timedelta, datetime
 
@@ -41,7 +42,16 @@ def get_cloudwatch_metrics(namespace, metricName, dimensions, event):
     yesterday = date.today() - timedelta(days=previousDays)
     tomorrow = date.today() + timedelta(days=1)
 
-    client = boto3.client('cloudwatch')
+    my_config = Config(
+        region_name = 'us-east-1',
+        signature_version = 'v4',
+        retries = {
+            'max_attempts': 10,
+            'mode': 'standard'
+        }
+    )
+
+    client = boto3.client('cloudwatch', config=my_config)
     response = client.get_metric_data(
         MetricDataQueries=[
             {

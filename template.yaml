@@ -156,12 +156,12 @@ Resources:
             Method: get      
             RestApiId: !Ref Api 
 
-  FetchLambdaMetricsFunction:
+  FetchCustomSagemakerMetricsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: fetch-lambda-metrics
-      Description: Lambda to fetch lambda CloudWatch metrics      
-      Handler: fetch-lambda-metrics.lambda_handler
+      FunctionName: fetch-custom-sagemaker-metrics
+      Description: Lambda to fetch custom sagemaker CloudWatch metrics      
+      Handler: fetch-custom-sagemaker-metrics.lambda_handler
       Policies:
       - Statement:
         - Sid: CloudWatchPermissions
@@ -173,9 +173,51 @@ Resources:
         FetchSpecificCloudWatchMetrics:
           Type: Api
           Properties:
-            Path: /fetch-lambda-metrics
+            Path: /fetch-custom-sagemaker-metrics
             Method: get      
             RestApiId: !Ref Api 
+
+  FetchS3MetricsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: fetch-s3-metrics
+      Description: Lambda to fetch s3 CloudWatch metrics      
+      Handler: fetch-s3-metrics.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: CloudWatchPermissions
+          Effect: Allow
+          Action:
+          - "cloudwatch:GetMetricData"
+          Resource: '*'      
+      Events:
+        FetchSpecificCloudWatchMetrics:
+          Type: Api
+          Properties:
+            Path: /fetch-s3-metrics
+            Method: get      
+            RestApiId: !Ref Api 
+
+  FetchApiGatewayMetricsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: fetch-api-gateway-metrics
+      Description: Lambda to fetch api gateway CloudWatch metrics      
+      Handler: fetch-api-gateway-metrics.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: CloudWatchPermissions
+          Effect: Allow
+          Action:
+          - "cloudwatch:GetMetricData"
+          Resource: '*'      
+      Events:
+        FetchSpecificCloudWatchMetrics:
+          Type: Api
+          Properties:
+            Path: /fetch-api-gateway-metrics
+            Method: get      
+            RestApiId: !Ref Api             
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
