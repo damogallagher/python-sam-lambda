@@ -1,6 +1,8 @@
 from shared.shared import get_cloudwatch_metrics
 
-
+# Get Airflow Metrics
+# Pass in metric you want as a query param named metricName
+# See https://docs.aws.amazon.com/mwaa/latest/userguide/access-metrics-cw-202.html for details on all the metrics
 def lambda_handler(event, context):
     namespace = 'AmazonMWAA'
 

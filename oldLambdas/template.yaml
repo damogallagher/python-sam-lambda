@@ -35,75 +35,70 @@ Resources:
         AllowOrigin: "'*'"
         MaxAge: "'600'"
 
-  FetchAirflowMetricsFunction:
+  SayHelloFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: fetch-airflow-metrics
-      Description: Lambda to fetch airflow CloudWatch metrics
-      Handler: fetch-airflow-metrics.lambda_handler
-      Policies:
-      - Statement:
-        - Sid: CloudWatchPermissions
-          Effect: Allow
-          Action:
-          - "cloudwatch:GetMetricData"
-          Resource: '*'      
+      FunctionName: say-hello
+      Description: Testing lambda by saying hello
+      CodeUri: app/hello
+      Handler: say-hello.lambda_handler
       Events:
-        FetchSpecificCloudWatchMetrics:
+        SayHello:
           Type: Api
           Properties:
-            Path: /fetch-airflow-metrics
-            Method: get      
-            RestApiId: !Ref Api 
-    
-  FetchSagemakerMetricsFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: fetch-sagemaker-metrics 
-      Description: Lambda to fetch sagemaker CloudWatch metrics      
-      Handler: fetch-sagemaker-metrics.lambda_handler
-      Policies:
-      - Statement:
-        - Sid: CloudWatchPermissions
-          Effect: Allow
-          Action:
-          - "cloudwatch:GetMetricData"
-          Resource: '*'      
-      Events:
-        FetchSpecificCloudWatchMetrics:
-          Type: Api
-          Properties:
-            Path: /fetch-sagemaker-metrics
-            Method: get      
-            RestApiId: !Ref Api 
+            Path: /hello
+            Method: get
+            RestApiId: !Ref Api
 
-  FetchCustomSagemakerMetricsFunction:
+  FetchS3BucketsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: fetch-custom-sagemaker-metrics
-      Description: Lambda to fetch custom sagemaker CloudWatch metrics      
-      Handler: fetch-custom-sagemaker-metrics.lambda_handler
+      FunctionName: fetch-s3-buckets
+      Description: Lambda to fetch the s3 buckets - used for testing
+      CodeUri: app/s3
+      Handler: fetch-s3-buckets.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: S3Permissions
+          Effect: Allow
+          Action:
+          - s3:ListAllMyBuckets
+          Resource: '*'
+      Events:
+        FetchS3Buckets:
+          Type: Api
+          Properties:
+            Path: /fetch-s3-buckets
+            Method: get
+            RestApiId: !Ref Api 
+            
+  FetchSpecificCloudWatchMetricsFunction:
+    Type: AWS::Serverless::Function
+    Properties:      
+      FunctionName: fetch-specific-cloudwatch-metrics
+      Description: Test cloudwatch metrics calls
+      Handler: fetch-specific-cloudwatch-metrics.lambda_handler
       Policies:
       - Statement:
         - Sid: CloudWatchPermissions
           Effect: Allow
           Action:
           - "cloudwatch:GetMetricData"
-          Resource: '*'      
+          Resource: '*'
       Events:
         FetchSpecificCloudWatchMetrics:
           Type: Api
           Properties:
-            Path: /fetch-custom-sagemaker-metrics
+            Path: /fetch-specific-cloudwatch-metrics
             Method: get      
             RestApiId: !Ref Api 
-
-  FetchS3MetricsFunction:
+                 
+  FetchCloudWatchMetricsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: fetch-s3-metrics
-      Description: Lambda to fetch s3 CloudWatch metrics      
-      Handler: fetch-s3-metrics.lambda_handler
+      FunctionName: fetch-cloudwatch-metrics
+      Description: Test cloudwatch metrics calls - can take query parameters for configuration    
+      Handler: fetch-cloudwatch-metrics.lambda_handler
       Policies:
       - Statement:
         - Sid: CloudWatchPermissions
@@ -111,42 +106,23 @@ Resources:
           Action:
           - "cloudwatch:GetMetricData"
           Resource: '*'      
-      Events:
-        FetchSpecificCloudWatchMetrics:
+      Events:          
+        FetchCloudWatchMetrics:
           Type: Api
           Properties:
-            Path: /fetch-s3-metrics
-            Method: get      
-            RestApiId: !Ref Api 
-
-  FetchApiGatewayMetricsFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: fetch-api-gateway-metrics
-      Description: Lambda to fetch api gateway CloudWatch metrics      
-      Handler: fetch-api-gateway-metrics.lambda_handler
-      Policies:
-      - Statement:
-        - Sid: CloudWatchPermissions
-          Effect: Allow
-          Action:
-          - "cloudwatch:GetMetricData"
-          Resource: '*'      
-      Events:
-        FetchSpecificCloudWatchMetrics:
-          Type: Api
-          Properties:
-            Path: /fetch-api-gateway-metrics
-            Method: get      
-            RestApiId: !Ref Api             
+            Path: /fetch-cloudwatch-metrics
+            Method: post
+            RestApiId: !Ref Api                          
+  
+   
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  BaseApiEndpoint:
+  Api:
     Description: "API Gateway endpoint URL for Prod stage for SAM Lambda function"
-    Value: !Sub "https://${Api}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+    Value: !Sub "https://${Api}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello"
   #Function:
   #  Description: "SAM Lambda Lambda Function ARN"
   #  Value: !GetAtt Function.Arn
