@@ -53,7 +53,7 @@ previousDays | No| 0 | Number of days to retrieve metrics for - 0 is current day
 
 ## Query Params
 Query Parameter | Required| Description
------------- | ------------- | ------------- | -------------
+------------ | ------------- | ------------- 
 bucketName | Yes | Bucket to get metrics for
 
 **/fetch-api-gateway-metrics**
