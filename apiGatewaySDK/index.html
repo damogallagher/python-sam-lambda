@@ -14,21 +14,52 @@
     <script type="text/javascript" src="apigClient.js"></script>
 
     <script type="text/javascript">
-        var params = {};
-        var body = {};
-        var additionalParams = {};
+        var fetchSpecificCloudwatchMetricsParams = {};
+        var fetchSpecificCloudwatchMetricsBody = {};
+        var fetchSpecificCloudwatchMetricsAdditionalParams = {};
 
         var apigClient = apigClientFactory.newClient();
-        apigClient.fetchSpecificCloudwatchMetricsGet(params, body, additionalParams)
+        apigClient.fetchSpecificCloudwatchMetricsGet(fetchSpecificCloudwatchMetricsParams, fetchSpecificCloudwatchMetricsBody, fetchSpecificCloudwatchMetricsAdditionalParams)
             .then(function (result) {
-                console.log('success result:', result);
-        }).catch(function (result) {
-                console.log('error result:', result);
-        });
+                console.log('[fetchSpecificCloudwatchMetricsGet] success result:', result);
+            }).catch(function (result) {
+                console.log('[fetchSpecificCloudwatchMetricsGet] error result:', result);
+            });
+
+        var fetchCloudwatchMetricsParams = {};
+        var fetchCloudwatchMetricsBody = 
+            [
+                {
+                    "Name": "Function",
+                    "Value": "Scheduler"
+                },
+                {
+                    "Name": "Environment",
+                    "Value": "csx-nonprod-dataops"
+                }
+            ];
+        var fetchCloudwatchMetricsAdditionalParams = {
+            queryParams: {
+                metricName: 'SchedulerHeartbeat',
+                namespace: 'AmazonMWAA'
+            }
+        };
+
+        var apigClient = apigClientFactory.newClient();
+        apigClient.fetchCloudwatchMetricsPost(fetchCloudwatchMetricsParams, fetchCloudwatchMetricsBody, fetchCloudwatchMetricsAdditionalParams)
+            .then(function (result) {
+                console.log('[fetchCloudwatchMetricsPost] success result:', result);
+            }).catch(function (result) {
+                console.log('[fetchCloudwatchMetricsPost] error result:', result);
+            });
+
+
     </script>
 
 </head>
+
 <body>
-Hello
+    Hello
 </body>
+
 </html>

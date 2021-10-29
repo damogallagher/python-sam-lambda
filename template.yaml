@@ -5,7 +5,13 @@ Description: >
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
-    Timeout: 10
+    Timeout: 60
+    Runtime: python3.9
+    CodeUri: app/
+    Environment:
+      Variables:
+        REGION_NAME: !Ref AWS::Region
+        EXEC_ENV: !Ref ExecEnv
 
 Parameters:
   ExecEnv:
@@ -26,19 +32,16 @@ Resources:
       Cors:
         AllowMethods: "'POST, GET, DELETE, PUT, OPTIONS'"
         AllowHeaders: "'*'"
-        AllowOrigin: "'http://*, https://*, *'"
+        AllowOrigin: "'*'"
         MaxAge: "'600'"
 
   SayHelloFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: app/
+      FunctionName: say-hello
+      Description: Testing lambda by saying hello
+      CodeUri: appTestLambdas/hello
       Handler: say-hello.lambda_handler
-      Runtime: python3.9
-      Environment:
-        Variables:
-          REGION_NAME: !Ref AWS::Region
-          EXEC_ENV: !Ref ExecEnv
       Events:
         SayHello:
           Type: Api
@@ -50,24 +53,16 @@ Resources:
   FetchS3BucketsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: app/
+      FunctionName: fetch-s3-buckets
+      Description: Lambda to fetch the s3 buckets - used for testing
+      CodeUri: appTestLambdas/s3
       Handler: fetch-s3-buckets.lambda_handler
-      Runtime: python3.9
-      Environment:
-        Variables:
-          REGION_NAME: !Ref AWS::Region
-          EXEC_ENV: !Ref ExecEnv
       Policies:
       - Statement:
         - Sid: S3Permissions
           Effect: Allow
           Action:
           - s3:ListAllMyBuckets
-          Resource: '*'
-        - Sid: CloudWatchPermissions
-          Effect: Allow
-          Action:
-          - "cloudwatch:GetMetricData"
           Resource: '*'
       Events:
         FetchS3Buckets:
@@ -79,14 +74,10 @@ Resources:
             
   FetchSpecificCloudWatchMetricsFunction:
     Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: app/
+    Properties:      
+      FunctionName: fetch-specific-cloudwatch-metrics
+      Description: Test cloudwatch metrics calls
       Handler: fetch-specific-cloudwatch-metrics.lambda_handler
-      Runtime: python3.9
-      Environment:
-        Variables:
-          REGION_NAME: !Ref AWS::Region
-          EXEC_ENV: !Ref ExecEnv
       Policies:
       - Statement:
         - Sid: CloudWatchPermissions
@@ -105,20 +96,16 @@ Resources:
   FetchCloudWatchMetricsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: app/
+      FunctionName: fetch-cloudwatch-metrics
+      Description: Test cloudwatch metrics calls - can take query parameters for configuration    
       Handler: fetch-cloudwatch-metrics.lambda_handler
-      Runtime: python3.9
-      Environment:
-        Variables:
-          REGION_NAME: !Ref AWS::Region
-          EXEC_ENV: !Ref ExecEnv
       Policies:
       - Statement:
         - Sid: CloudWatchPermissions
           Effect: Allow
           Action:
           - "cloudwatch:GetMetricData"
-          Resource: '*'
+          Resource: '*'      
       Events:          
         FetchCloudWatchMetrics:
           Type: Api
@@ -127,7 +114,68 @@ Resources:
             Method: post
             RestApiId: !Ref Api                          
   
+  FetchAirflowMetricsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: fetch-airflow-metrics
+      Description: Lambda to fetch airflow CloudWatch metrics
+      Handler: fetch-airflow-metrics.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: CloudWatchPermissions
+          Effect: Allow
+          Action:
+          - "cloudwatch:GetMetricData"
+          Resource: '*'      
+      Events:
+        FetchSpecificCloudWatchMetrics:
+          Type: Api
+          Properties:
+            Path: /fetch-airflow-metrics
+            Method: get      
+            RestApiId: !Ref Api 
+    
+  FetchSagemakerMetricsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: fetch-sagemaker-metrics 
+      Description: Lambda to fetch sagemaker CloudWatch metrics      
+      Handler: fetch-sagemaker-metrics.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: CloudWatchPermissions
+          Effect: Allow
+          Action:
+          - "cloudwatch:GetMetricData"
+          Resource: '*'      
+      Events:
+        FetchSpecificCloudWatchMetrics:
+          Type: Api
+          Properties:
+            Path: /fetch-sagemaker-metrics
+            Method: get      
+            RestApiId: !Ref Api 
 
+  FetchLambdaMetricsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: fetch-lambda-metrics
+      Description: Lambda to fetch lambda CloudWatch metrics      
+      Handler: fetch-lambda-metrics.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: CloudWatchPermissions
+          Effect: Allow
+          Action:
+          - "cloudwatch:GetMetricData"
+          Resource: '*'      
+      Events:
+        FetchSpecificCloudWatchMetrics:
+          Type: Api
+          Properties:
+            Path: /fetch-lambda-metrics
+            Method: get      
+            RestApiId: !Ref Api 
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
