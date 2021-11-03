@@ -11,6 +11,9 @@ Globals:
     Environment:
       Variables:
         REGION_NAME: !Ref AWS::Region
+        SIGNATURE_VERSION: 'v4'
+        RETRIES_MAX_ATTEMPTS: 10
+        RETRIES_MODE: 'standard'
         EXEC_ENV: !Ref ExecEnv
 
 Parameters:
@@ -35,75 +38,54 @@ Resources:
         AllowOrigin: "'*'"
         MaxAge: "'600'"
 
-  FetchAirflowMetricsFunction:
+  ListCloudWatchNamespacesFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: fetch-airflow-metrics
-      Description: Lambda to fetch airflow CloudWatch metrics
-      Handler: fetch-airflow-metrics.lambda_handler
+      FunctionName: list-cloudwatch-namespaces
+      Description: Lambda to list CloudWatch namespaces      
+      Handler: list-cloudwatch-namespaces.lambda_handler
       Policies:
       - Statement:
         - Sid: CloudWatchPermissions
           Effect: Allow
           Action:
-          - "cloudwatch:GetMetricData"
+          - "cloudwatch:ListMetrics"
           Resource: '*'      
       Events:
-        FetchSpecificCloudWatchMetrics:
+        ListNamespaces:
           Type: Api
           Properties:
-            Path: /fetch-airflow-metrics
+            Path: /list-cloudwatch-namespaces
             Method: get      
-            RestApiId: !Ref Api 
-    
-  FetchSagemakerMetricsFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: fetch-sagemaker-metrics 
-      Description: Lambda to fetch sagemaker CloudWatch metrics      
-      Handler: fetch-sagemaker-metrics.lambda_handler
-      Policies:
-      - Statement:
-        - Sid: CloudWatchPermissions
-          Effect: Allow
-          Action:
-          - "cloudwatch:GetMetricData"
-          Resource: '*'      
-      Events:
-        FetchSpecificCloudWatchMetrics:
-          Type: Api
-          Properties:
-            Path: /fetch-sagemaker-metrics
-            Method: get      
-            RestApiId: !Ref Api 
+            RestApiId: !Ref Api   
 
-  FetchCustomSagemakerMetricsFunction:
+  ListCloudWatchMetricsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: fetch-custom-sagemaker-metrics
-      Description: Lambda to fetch custom sagemaker CloudWatch metrics      
-      Handler: fetch-custom-sagemaker-metrics.lambda_handler
+      FunctionName: list-cloudwatch-metrics
+      Description: Lambda to list CloudWatch metrics      
+      Handler: list-cloudwatch-metrics.lambda_handler
       Policies:
       - Statement:
         - Sid: CloudWatchPermissions
           Effect: Allow
           Action:
-          - "cloudwatch:GetMetricData"
+          - "cloudwatch:ListMetrics"
           Resource: '*'      
       Events:
-        FetchSpecificCloudWatchMetrics:
+        ListMetrics:
           Type: Api
           Properties:
-            Path: /fetch-custom-sagemaker-metrics
+            Path: /list-cloudwatch-metrics
             Method: get      
-            RestApiId: !Ref Api 
+            RestApiId: !Ref Api      
 
-  FetchS3MetricsFunction:
+  FetchCloudWatchMetrics:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: fetch-s3-metrics
-      Description: Lambda to fetch s3 CloudWatch metrics      
-      Handler: fetch-s3-metrics.lambda_handler
+      FunctionName: fetch-cloudwatch-metrics
+      Description: Lambda to fetch CloudWatch metrics
+      Handler: fetch-cloudwatch-metrics.lambda_handler
       Policies:
       - Statement:
         - Sid: CloudWatchPermissions
@@ -112,33 +94,12 @@ Resources:
           - "cloudwatch:GetMetricData"
           Resource: '*'      
       Events:
-        FetchSpecificCloudWatchMetrics:
+        FetchCloudWatchMetrics:
           Type: Api
           Properties:
-            Path: /fetch-s3-metrics
-            Method: get      
+            Path: /fetch-cloudwatch-metrics
+            Method: post      
             RestApiId: !Ref Api 
-
-  FetchApiGatewayMetricsFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: fetch-api-gateway-metrics
-      Description: Lambda to fetch api gateway CloudWatch metrics      
-      Handler: fetch-api-gateway-metrics.lambda_handler
-      Policies:
-      - Statement:
-        - Sid: CloudWatchPermissions
-          Effect: Allow
-          Action:
-          - "cloudwatch:GetMetricData"
-          Resource: '*'      
-      Events:
-        FetchSpecificCloudWatchMetrics:
-          Type: Api
-          Properties:
-            Path: /fetch-api-gateway-metrics
-            Method: get      
-            RestApiId: !Ref Api             
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function

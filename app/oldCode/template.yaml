@@ -1,0 +1,217 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  This is a SAM template for the sam-lambda functionality
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 60
+    Runtime: python3.9
+    CodeUri: app/
+    Environment:
+      Variables:
+        REGION_NAME: !Ref AWS::Region
+        EXEC_ENV: !Ref ExecEnv
+
+Parameters:
+  ExecEnv:
+    Type: String
+    AllowedValues:
+      - local
+      - dev
+      - stage
+      - Prod
+    Default: Prod
+
+Resources:
+
+  Api:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref ExecEnv
+      Cors:
+        AllowMethods: "'POST, GET, DELETE, PUT, OPTIONS'"
+        AllowHeaders: "'*'"
+        AllowOrigin: "'*'"
+        MaxAge: "'600'"
+
+  FetchAirflowMetricsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: fetch-airflow-metrics
+      Description: Lambda to fetch airflow CloudWatch metrics
+      Handler: old/fetch-airflow-metrics.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: CloudWatchPermissions
+          Effect: Allow
+          Action:
+          - "cloudwatch:GetMetricData"
+          Resource: '*'      
+      Events:
+        FetchSpecificCloudWatchMetrics:
+          Type: Api
+          Properties:
+            Path: /fetch-airflow-metrics
+            Method: get      
+            RestApiId: !Ref Api 
+    
+  FetchSagemakerMetricsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: fetch-sagemaker-metrics 
+      Description: Lambda to fetch sagemaker CloudWatch metrics      
+      Handler: old/fetch-sagemaker-metrics.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: CloudWatchPermissions
+          Effect: Allow
+          Action:
+          - "cloudwatch:GetMetricData"
+          Resource: '*'      
+      Events:
+        FetchSpecificCloudWatchMetrics:
+          Type: Api
+          Properties:
+            Path: /fetch-sagemaker-metrics
+            Method: get      
+            RestApiId: !Ref Api 
+
+  FetchCustomSagemakerMetricsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: fetch-custom-sagemaker-metrics
+      Description: Lambda to fetch custom sagemaker CloudWatch metrics      
+      Handler: old/fetch-custom-sagemaker-metrics.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: CloudWatchPermissions
+          Effect: Allow
+          Action:
+          - "cloudwatch:GetMetricData"
+          Resource: '*'      
+      Events:
+        FetchSpecificCloudWatchMetrics:
+          Type: Api
+          Properties:
+            Path: /fetch-custom-sagemaker-metrics
+            Method: get      
+            RestApiId: !Ref Api 
+
+  FetchS3MetricsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: fetch-s3-metrics
+      Description: Lambda to fetch s3 CloudWatch metrics      
+      Handler: old/fetch-s3-metrics.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: CloudWatchPermissions
+          Effect: Allow
+          Action:
+          - "cloudwatch:GetMetricData"
+          Resource: '*'      
+      Events:
+        FetchSpecificCloudWatchMetrics:
+          Type: Api
+          Properties:
+            Path: /fetch-s3-metrics
+            Method: get      
+            RestApiId: !Ref Api 
+
+  FetchApiGatewayMetricsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: fetch-api-gateway-metrics
+      Description: Lambda to fetch api gateway CloudWatch metrics      
+      Handler: old/fetch-api-gateway-metrics.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: CloudWatchPermissions
+          Effect: Allow
+          Action:
+          - "cloudwatch:GetMetricData"
+          Resource: '*'      
+      Events:
+        FetchSpecificCloudWatchMetrics:
+          Type: Api
+          Properties:
+            Path: /fetch-api-gateway-metrics
+            Method: get      
+            RestApiId: !Ref Api             
+
+  ListMetricsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: list-metrics
+      Description: Lambda to list CloudWatch metrics      
+      Handler: list-metrics.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: CloudWatchPermissions
+          Effect: Allow
+          Action:
+          - "cloudwatch:ListMetrics"
+          Resource: '*'      
+      Events:
+        ListMetrics:
+          Type: Api
+          Properties:
+            Path: /list-metrics
+            Method: get      
+            RestApiId: !Ref Api  
+
+  ListNamespacesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: list-namespaces
+      Description: Lambda to list CloudWatch namespaces      
+      Handler: list-namespaces.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: CloudWatchPermissions
+          Effect: Allow
+          Action:
+          - "cloudwatch:ListMetrics"
+          Resource: '*'      
+      Events:
+        ListNamespaces:
+          Type: Api
+          Properties:
+            Path: /list-namespaces
+            Method: get      
+            RestApiId: !Ref Api   
+
+  ListMetricsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: list-metrics
+      Description: Lambda to list CloudWatch metrics      
+      Handler: list-metrics.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: CloudWatchPermissions
+          Effect: Allow
+          Action:
+          - "cloudwatch:ListMetrics"
+          Resource: '*'      
+      Events:
+        ListMetrics:
+          Type: Api
+          Properties:
+            Path: /list-metrics
+            Method: get      
+            RestApiId: !Ref Api                         
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  BaseApiEndpoint:
+    Description: "API Gateway endpoint URL for Prod stage for SAM Lambda function"
+    Value: !Sub "https://${Api}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+  #Function:
+  #  Description: "SAM Lambda Lambda Function ARN"
+  #  Value: !GetAtt Function.Arn
+  #FunctionIamRole:
+  #  Description: "Implicit IAM Role created for SAM Lambda function"
+  #  Value: !GetAtt FunctionRole.Arn

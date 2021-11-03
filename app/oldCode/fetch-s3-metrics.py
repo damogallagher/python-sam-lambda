@@ -7,7 +7,7 @@ from shared.shared import get_cloudwatch_metrics
 # Question - should we pass in the storage types of the bucket?
 def lambda_handler(event, context):
     namespace = 'AWS/S3'
-
+ 
     queryStringParameters = event["queryStringParameters"]
     metricName = queryStringParameters['metricName'] if 'metricName' in queryStringParameters else 'NumberOfObjects'
     bucketName = queryStringParameters['bucketName']

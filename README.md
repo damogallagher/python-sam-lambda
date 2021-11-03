@@ -27,61 +27,39 @@ scanBy | No| TimestampDescending| How to order the metrics. Valid values are Tim
 previousDays | No| 0 | Number of days to retrieve metrics for - 0 is current day, 1 is current day and previous day etc.
 
 
-**/fetch-airflow-metrics**
+**/list-cloudwatch-namespaces**
 
 **Type:** GET
 
-**Sample Endpoint:** https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-airflow-metrics?metricName=OrphanedTasksAdopted
+**Purposes:** Lists all the namespaces that exist within the cloudwatch metrics for the current aws region
 
-**/fetch-sagemaker-metrics**
+**Sample Endpoint:** https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/list-cloudwatch-namespaces
 
-**Type:** GET
-
-**Sample Endpoint:** https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-sagemaker-metrics?metricName=Invocations
-
-**/fetch-custom-sagemaker-metrics**
+**/list-cloudwatch-metrics**
 
 **Type:** GET
 
-**Sample Endpoint:** https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-custom-sagemaker-metrics?metricName=MemoryUtilization
+**Query Params:** 
+namespace - retrieved from list-cloudwatch-namespaces call
 
-**/fetch-s3-metrics**
+**Purposes:** Gey all available metrics for a namespace. This returns the metrics as well as a list of all the dimensions for that metric
 
-**Type:** GET
+**Sample Endpoint:** https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/list-cloudwatch-metrics?namespace=AmazonMWAA
 
-**Sample Endpoint:** https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-s3-metrics?metricName=NumberOfObjects&bucketName=my-bucket
-
-## Query Params
-Query Parameter | Required| Description
------------- | ------------- | ------------- 
-bucketName | Yes | Bucket to get metrics for
-
-**/fetch-api-gateway-metrics**
-
-**Type:** GET
-
-**Sample Endpoint:** https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-api-gateway-metrics?metricName=4XXError
-
-
-## OLD Queries
 **/fetch-cloudwatch-metrics**
 
 **Type:** POST
 
-**Sample Endpoint:** https://5j1q4mnrt8.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=SchedulerHeartbeat&period=3660&stat=Sum&label=TempLabel&scanBy=TimestampDescending&previousDays=0
+**Query Params:** 
+namespace - retrieved from list-cloudwatch-namespaces call
+metricName - retrieved from the list-cloudwatch-metrics call
 
-## Query Params
-Query Parameter | Required| Default Value| Description
------------- | ------------- | ------------- | -------------
-namespace | Yes | |https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Namespace
-metricName | Yes| | https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric
-period | No | 60 | https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#CloudWatchPeriods
-stat | No| Sum |https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Statistic
-label | No| label | Descriptive lable for the data being returned (e.g. CPUUtilization, peak of ${MAX} was at ${MAX_TIME})
-scanBy | No| TimestampDescending| How to order the metrics. Valid values are TimestampDescending or TimestampAscending
-previousDays | No| 0 | Number of days to retrieve metrics for - 0 is current day, 1 is current day and previous day etc.
+**Body:**  The body is the dimension we want to retrieve. The list-cloudwatch-metrics call returns a list of dimensions for a metric and namespace combination. We need to pass in 1 of these metrics
 
-See https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricData.html#API_GetMetricData_Examples for examples
+**Sample Endpoint:** https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=CriticalSectionBusy
+
+**Sample Endpoint:** https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=CriticalSectionBusy&period=60&stat=Sum&label=TempLabel&scanBy=TimestampDescending&previousDays=0 
+
 ## Sample Body  
 ```
 [
@@ -95,5 +73,3 @@ See https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetr
   }
 ]
 ```
-
-

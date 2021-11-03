@@ -6,15 +6,15 @@
 	},
 	"item": [
 		{
-			"name": "fetch-specific-cloudwatch-metrics",
+			"name": "list-cloudwatch-namespaces",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://hzr02vaffj.execute-api.us-east-1.amazonaws.com/Prod/fetch-specific-cloudwatch-metrics",
+					"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/list-cloudwatch-namespaces",
 					"protocol": "https",
 					"host": [
-						"hzr02vaffj",
+						"d5un4aacsl",
 						"execute-api",
 						"us-east-1",
 						"amazonaws",
@@ -22,14 +22,43 @@
 					],
 					"path": [
 						"Prod",
-						"fetch-specific-cloudwatch-metrics"
+						"list-cloudwatch-namespaces"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "fetch-cloudwatch-metrics",
+			"name": "list-cloudwatch-metrics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/list-cloudwatch-metrics?namespace=AmazonMWAA",
+					"protocol": "https",
+					"host": [
+						"d5un4aacsl",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"list-cloudwatch-metrics"
+					],
+					"query": [
+						{
+							"key": "namespace",
+							"value": "AmazonMWAA"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetch-cloudwatch-metrics (Defaults)",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -41,13 +70,13 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "[\n                            {\n                              \"Name\": \"Function\",\n                              \"Value\": \"Scheduler\"\n                            },\n                            {\n                              \"Name\": \"Environment\",\n                              \"Value\": \"csx-nonprod-dataops\"\n                            }\n                        ]"
+					"raw": "[\n                {\n                    \"Name\": \"Function\",\n                    \"Value\": \"Scheduler\"\n                },\n                {\n                    \"Name\": \"Environment\",\n                    \"Value\": \"csx-nonprod-dataops\"\n                }\n            ]"
 				},
 				"url": {
-					"raw": "https://ozc20bp04f.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=SchedulerHeartbeat&period=3660&stat=Sum&label=TempLabel&scanBy=TimestampDescending&previousDays=0 ",
+					"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=CriticalSectionBusy",
 					"protocol": "https",
 					"host": [
-						"ozc20bp04f",
+						"d5un4aacsl",
 						"execute-api",
 						"us-east-1",
 						"amazonaws",
@@ -64,11 +93,54 @@
 						},
 						{
 							"key": "metricName",
-							"value": "SchedulerHeartbeat"
+							"value": "CriticalSectionBusy"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetch-cloudwatch-metrics - All Attributes",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n                {\n                    \"Name\": \"Function\",\n                    \"Value\": \"Scheduler\"\n                },\n                {\n                    \"Name\": \"Environment\",\n                    \"Value\": \"csx-nonprod-dataops\"\n                }\n            ]"
+				},
+				"url": {
+					"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=CriticalSectionBusy&period=60&stat=Sum&label=TempLabel&scanBy=TimestampDescending&previousDays=0 ",
+					"protocol": "https",
+					"host": [
+						"d5un4aacsl",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"fetch-cloudwatch-metrics"
+					],
+					"query": [
+						{
+							"key": "namespace",
+							"value": "AmazonMWAA"
+						},
+						{
+							"key": "metricName",
+							"value": "CriticalSectionBusy"
 						},
 						{
 							"key": "period",
-							"value": "3660"
+							"value": "60"
 						},
 						{
 							"key": "stat",
