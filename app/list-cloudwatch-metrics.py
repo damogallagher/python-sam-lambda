@@ -3,6 +3,8 @@ from botocore.config import Config
 import json
 from shared.shared import error_response, success_response, cloudwatch_client
 
+client = cloudwatch_client()
+
 # List CloudWatch Metrics
 # Pass in a namespace you want as a query param named namespace to get all metrics and dimensions for that namespace
 # See https://boto3.amazonaws.com/v1/documentation/api/latest/guide/cw-example-metrics.html
@@ -14,8 +16,6 @@ def lambda_handler(event, context):
 
     namespace = queryStringParameters['namespace']
      
-    client = cloudwatch_client()
-
     metric_dict = {} 
     # List metrics through the pagination interface
     paginator = client.get_paginator('list_metrics')

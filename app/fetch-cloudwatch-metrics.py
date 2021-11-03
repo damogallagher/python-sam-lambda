@@ -3,6 +3,8 @@ import json
 import json
 from datetime import date, timedelta, datetime
 
+client = cloudwatch_client()
+
 # Get Cloudwatch Metrics
 # Pass in namespace you want as a query param named namespace
 # Pass in metricName you want as a query param named metricName
@@ -20,9 +22,6 @@ def lambda_handler(event, context):
         return error_response("Request body is not specified. Please pass in the dimensions in the request body")     
 
     dimensions = json.loads(event["body"])
-
-    client = cloudwatch_client()   
-
     print("Event")
     print(event)
     print("namespace")
