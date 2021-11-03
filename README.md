@@ -15,17 +15,6 @@ sam deploy
 sam delete --no-prompts --profile csx
 
 # Endpoints
-## Query Params
-The following query parameters can be sent with all api calls or just use the defaults as per the table
-Query Parameter | Required| Default Value| Description
------------- | ------------- | ------------- | -------------
-metricName | Yes| | https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric
-period | No | 60 | https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#CloudWatchPeriods
-stat | No| Sum |https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Statistic
-label | No| label | Descriptive lable for the data being returned (e.g. CPUUtilization, peak of ${MAX} was at ${MAX_TIME})
-scanBy | No| TimestampDescending| How to order the metrics. Valid values are TimestampDescending or TimestampAscending
-previousDays | No| 0 | Number of days to retrieve metrics for - 0 is current day, 1 is current day and previous day etc.
-
 
 **/list-cloudwatch-namespaces**
 
@@ -73,3 +62,18 @@ metricName - retrieved from the list-cloudwatch-metrics call
   }
 ]
 ```
+## Query Params
+The following query parameters can be sent with the fetch-cloudwatch-metrics api call or just use the defaults as per the table. 
+
+*Note*: namespace and metricName are required query params
+
+Query Parameter | Required| Default Value| Description
+------------ | ------------- | ------------- | -------------
+namespace | Yes| | https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Namespace
+metricName | Yes| | https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Metric
+period | No | 60 | https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#CloudWatchPeriods
+stat | No| Sum |https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#Statistic
+label | No| label | Descriptive lable for the data being returned (e.g. CPUUtilization, peak of ${MAX} was at ${MAX_TIME})
+scanBy | No| TimestampDescending| How to order the metrics. Valid values are TimestampDescending or TimestampAscending
+previousDays | No| 0 | Number of days to retrieve metrics for - 0 is current day, 1 is current day and previous day etc.
+
