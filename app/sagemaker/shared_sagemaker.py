@@ -1,7 +1,8 @@
 import boto3
 from botocore.config import Config
 import os
-def cloudwatch_client():
+
+def sagemaker_client():
     # Create CloudWatch client
     client_config = Config(
         region_name = os.environ['REGION_NAME'],
@@ -12,7 +13,8 @@ def cloudwatch_client():
         }
     )
 
-    return boto3.client('cloudwatch', config=client_config)
+    return boto3.client('sagemaker', config=client_config)
+
 
 def error_response(message):
     print(message)

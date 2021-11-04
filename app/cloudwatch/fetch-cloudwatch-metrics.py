@@ -1,5 +1,4 @@
-from shared import error_response, success_response, cloudwatch_client
-import json
+from shared_cloudwatch import  cloudwatch_client, error_response, success_response
 import json
 from datetime import date, timedelta, datetime
 

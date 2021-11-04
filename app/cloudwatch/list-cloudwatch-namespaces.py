@@ -1,7 +1,5 @@
-import boto3
-from botocore.config import Config
+from shared_cloudwatch import  cloudwatch_client, success_response
 import json
-from shared import success_response, cloudwatch_client
 
 client = cloudwatch_client()
 

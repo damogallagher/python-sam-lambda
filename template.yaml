@@ -104,6 +104,49 @@ Resources:
             Method: post      
             RestApiId: !Ref Api 
 
+  ListSagemakerTrainingJobs:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: list-sagemaker-training-jobs
+      Description: Lambda to list the Sagemaker training jobs
+      CodeUri: app/sagemaker  
+      Handler: list-sagemaker-training-jobs.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: SageMakerPermissions
+          Effect: Allow
+          Action:
+          - "sagemaker:ListTrainingJobs"
+          Resource: '*'      
+      Events:
+        ListSagemakerTrainingJobs:
+          Type: Api
+          Properties:
+            Path: /sagemaker/list-sagemaker-training-jobs
+            Method: get      
+            RestApiId: !Ref Api 
+
+  DescribeSagemakerTrainingJob:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: describe-sagemaker-training-job
+      Description: Lambda to describe a Sagemaker training job
+      CodeUri: app/sagemaker  
+      Handler: describe-sagemaker-training-job.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: SageMakerPermissions
+          Effect: Allow
+          Action:
+          - "sagemaker:DescribeTrainingJob"
+          Resource: '*'      
+      Events:
+        DescribeSagemakerTrainingJob:
+          Type: Api
+          Properties:
+            Path: /sagemaker/describe-sagemaker-training-job
+            Method: get      
+            RestApiId: !Ref Api 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
