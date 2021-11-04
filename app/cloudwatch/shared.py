@@ -15,6 +15,7 @@ def cloudwatch_client():
     return boto3.client('cloudwatch', config=client_config)
 
 def error_response(message):
+    print(message)
     return {
             "statusCode": 400,
             'headers': {

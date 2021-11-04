@@ -1,4 +1,4 @@
-from shared.shared import error_response, success_response, cloudwatch_client
+from shared import error_response, success_response, cloudwatch_client
 import json
 import json
 from datetime import date, timedelta, datetime
@@ -12,9 +12,21 @@ client = cloudwatch_client()
 def lambda_handler(event, context):
 
     queryStringParameters = event["queryStringParameters"]
-    if not queryStringParameters or 'namespace' not in queryStringParameters or 'metricName' not in queryStringParameters:
-        return error_response("Namespace or metric name is not specified")               
+    # if not queryStringParameters or 'namespace' not in queryStringParameters or 'metricName' not in queryStringParameters:
+    #     return error_response("Namespace or metric name is not specified")               
 
+    if not queryStringParameters:
+        print(event)
+        return error_response("No queryParams returned")     
+
+    if 'namespace' not in queryStringParameters:
+        print(event)
+        return error_response("namespace is not specified")     
+
+    if 'metricName' not in queryStringParameters:
+        print(event)
+        return error_response("metricName is not specified")     
+        
     namespace = queryStringParameters['namespace']
     metricName = queryStringParameters['metricName']
 

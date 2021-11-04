@@ -6,7 +6,6 @@ Description: >
 Globals:
   Function:
     Runtime: python3.9
-    CodeUri: app/
     Timeout: 60    
     MemorySize: 3072
     Environment:
@@ -43,7 +42,8 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: list-cloudwatch-namespaces
-      Description: Lambda to list CloudWatch namespaces      
+      Description: Lambda to list CloudWatch namespaces  
+      CodeUri: app/cloudwatch    
       Handler: list-cloudwatch-namespaces.lambda_handler
       Policies:
       - Statement:
@@ -65,6 +65,7 @@ Resources:
     Properties:
       FunctionName: list-cloudwatch-metrics
       Description: Lambda to list CloudWatch metrics      
+      CodeUri: app/cloudwatch  
       Handler: list-cloudwatch-metrics.lambda_handler
       Policies:
       - Statement:
@@ -86,6 +87,7 @@ Resources:
     Properties:
       FunctionName: fetch-cloudwatch-metrics
       Description: Lambda to fetch CloudWatch metrics
+      CodeUri: app/cloudwatch  
       Handler: fetch-cloudwatch-metrics.lambda_handler
       Policies:
       - Statement:
