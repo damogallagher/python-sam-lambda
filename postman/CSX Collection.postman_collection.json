@@ -6,162 +6,226 @@
 	},
 	"item": [
 		{
-			"name": "list-cloudwatch-namespaces",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/list-cloudwatch-namespaces",
-					"protocol": "https",
-					"host": [
-						"d5un4aacsl",
-						"execute-api",
-						"us-east-1",
-						"amazonaws",
-						"com"
-					],
-					"path": [
-						"Prod",
-						"list-cloudwatch-namespaces"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "list-cloudwatch-metrics",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/list-cloudwatch-metrics?namespace=AmazonMWAA",
-					"protocol": "https",
-					"host": [
-						"d5un4aacsl",
-						"execute-api",
-						"us-east-1",
-						"amazonaws",
-						"com"
-					],
-					"path": [
-						"Prod",
-						"list-cloudwatch-metrics"
-					],
-					"query": [
-						{
-							"key": "namespace",
-							"value": "AmazonMWAA"
+			"name": "CloudWatch",
+			"item": [
+				{
+					"name": "list-cloudwatch-namespaces",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/list-cloudwatch-namespaces",
+							"protocol": "https",
+							"host": [
+								"d5un4aacsl",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"list-cloudwatch-namespaces"
+							]
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "fetch-cloudwatch-metrics (Defaults)",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[\n                {\n                    \"Name\": \"Function\",\n                    \"Value\": \"Scheduler\"\n                },\n                {\n                    \"Name\": \"Environment\",\n                    \"Value\": \"csx-nonprod-dataops\"\n                }\n            ]"
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=CriticalSectionBusy",
-					"protocol": "https",
-					"host": [
-						"d5un4aacsl",
-						"execute-api",
-						"us-east-1",
-						"amazonaws",
-						"com"
-					],
-					"path": [
-						"Prod",
-						"fetch-cloudwatch-metrics"
-					],
-					"query": [
-						{
-							"key": "namespace",
-							"value": "AmazonMWAA"
-						},
-						{
-							"key": "metricName",
-							"value": "CriticalSectionBusy"
+				{
+					"name": "list-cloudwatch-metrics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/list-cloudwatch-metrics?namespace=AmazonMWAA",
+							"protocol": "https",
+							"host": [
+								"d5un4aacsl",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"list-cloudwatch-metrics"
+							],
+							"query": [
+								{
+									"key": "namespace",
+									"value": "AmazonMWAA"
+								}
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "fetch-cloudwatch-metrics (Defaults)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n                {\n                    \"Name\": \"Function\",\n                    \"Value\": \"Scheduler\"\n                },\n                {\n                    \"Name\": \"Environment\",\n                    \"Value\": \"csx-nonprod-dataops\"\n                }\n            ]"
+						},
+						"url": {
+							"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=CriticalSectionBusy",
+							"protocol": "https",
+							"host": [
+								"d5un4aacsl",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"fetch-cloudwatch-metrics"
+							],
+							"query": [
+								{
+									"key": "namespace",
+									"value": "AmazonMWAA"
+								},
+								{
+									"key": "metricName",
+									"value": "CriticalSectionBusy"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fetch-cloudwatch-metrics - All Attributes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n                {\n                    \"Name\": \"Function\",\n                    \"Value\": \"Scheduler\"\n                },\n                {\n                    \"Name\": \"Environment\",\n                    \"Value\": \"csx-nonprod-dataops\"\n                }\n            ]"
+						},
+						"url": {
+							"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=CriticalSectionBusy&period=60&stat=Sum&label=TempLabel&scanBy=TimestampDescending&previousDays=0 ",
+							"protocol": "https",
+							"host": [
+								"d5un4aacsl",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"fetch-cloudwatch-metrics"
+							],
+							"query": [
+								{
+									"key": "namespace",
+									"value": "AmazonMWAA"
+								},
+								{
+									"key": "metricName",
+									"value": "CriticalSectionBusy"
+								},
+								{
+									"key": "period",
+									"value": "60"
+								},
+								{
+									"key": "stat",
+									"value": "Sum"
+								},
+								{
+									"key": "label",
+									"value": "TempLabel"
+								},
+								{
+									"key": "scanBy",
+									"value": "TimestampDescending"
+								},
+								{
+									"key": "previousDays",
+									"value": "0 "
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "fetch-cloudwatch-metrics - All Attributes",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[\n                {\n                    \"Name\": \"Function\",\n                    \"Value\": \"Scheduler\"\n                },\n                {\n                    \"Name\": \"Environment\",\n                    \"Value\": \"csx-nonprod-dataops\"\n                }\n            ]"
-				},
-				"url": {
-					"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=CriticalSectionBusy&period=60&stat=Sum&label=TempLabel&scanBy=TimestampDescending&previousDays=0 ",
-					"protocol": "https",
-					"host": [
-						"d5un4aacsl",
-						"execute-api",
-						"us-east-1",
-						"amazonaws",
-						"com"
-					],
-					"path": [
-						"Prod",
-						"fetch-cloudwatch-metrics"
-					],
-					"query": [
-						{
-							"key": "namespace",
-							"value": "AmazonMWAA"
-						},
-						{
-							"key": "metricName",
-							"value": "CriticalSectionBusy"
-						},
-						{
-							"key": "period",
-							"value": "60"
-						},
-						{
-							"key": "stat",
-							"value": "Sum"
-						},
-						{
-							"key": "label",
-							"value": "TempLabel"
-						},
-						{
-							"key": "scanBy",
-							"value": "TimestampDescending"
-						},
-						{
-							"key": "previousDays",
-							"value": "0 "
+			"name": "SageMaker",
+			"item": [
+				{
+					"name": "list-training-jobs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/sagemaker/list-training-jobs",
+							"protocol": "https",
+							"host": [
+								"d5un4aacsl",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"sagemaker",
+								"list-training-jobs"
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "describe-training-job",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/sagemaker/describe-training-job?trainingJobName=mxnet-training-2021-11-01-05-23-15-483",
+							"protocol": "https",
+							"host": [
+								"d5un4aacsl",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"sagemaker",
+								"describe-training-job"
+							],
+							"query": [
+								{
+									"key": "trainingJobName",
+									"value": "mxnet-training-2021-11-01-05-23-15-483"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	]
 }

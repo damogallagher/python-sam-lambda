@@ -14,7 +14,7 @@ sam deploy
 # Destroy infrastructure
 sam delete --no-prompts --profile csx
 
-# Endpoints
+# CloudWatch Endpoints
 
 **/list-cloudwatch-namespaces**
 
@@ -31,7 +31,7 @@ sam delete --no-prompts --profile csx
 **Query Params:** 
 namespace - retrieved from list-cloudwatch-namespaces call
 
-**Purposes:** Gey all available metrics for a namespace. This returns the metrics as well as a list of all the dimensions for that metric
+**Purposes:** Get all available metrics for a namespace. This returns the metrics as well as a list of all the dimensions for that metric
 
 **Sample Endpoint:** https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/list-cloudwatch-metrics?namespace=AmazonMWAA
 
@@ -77,3 +77,23 @@ label | No| label | Descriptive lable for the data being returned (e.g. CPUUtili
 scanBy | No| TimestampDescending| How to order the metrics. Valid values are TimestampDescending or TimestampAscending
 previousDays | No| 0 | Number of days to retrieve metrics for - 0 is current day, 1 is current day and previous day etc.
 
+# Sagemaker Endpoints
+
+**/sagemaker/list-training-jobs**
+
+**Type:** GET
+
+**Purposes:** Lists all the training jobs that existin in AWS for the current aws region
+
+**Sample Endpoint:** https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/sagemaker/list-training-jobs
+
+**/sagemaker/describe-training-job**
+
+**Type:** GET
+
+**Query Params:** 
+trainingJobName - the trainingJobName retrieved in the list training jobs call
+
+**Purposes:** Get the details from a specific training job
+
+**Sample Endpoint:** https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/sagemaker/describe-training-job?trainingJobName=mxnet-training-2021-11-01-05-23-15-483
