@@ -155,6 +155,9 @@ Resources:
       Description: Lambda to fetch all OpsGenie alerts
       CodeUri: app/opsgenie  
       Handler: fetch-opsgenie-alerts.lambda_handler
+      Environment:
+         Variables:
+           OPSGENIE_API_KEY_PARAM: 'OPSGENIE_API_KEY'
       Policies:
       - Statement:
         - Sid: OpsGeniePermissions
@@ -177,6 +180,9 @@ Resources:
       Description: Lambda to create an OpsGenie alert
       CodeUri: app/opsgenie  
       Handler: create-opsgenie-alert.lambda_handler
+      Environment:
+         Variables:
+           OPSGENIE_API_KEY_PARAM: 'OPSGENIE_API_KEY'      
       Policies:
       - Statement:
         - Sid: OpsGeniePermissions
@@ -189,6 +195,21 @@ Resources:
           Type: Api
           Properties:
             Path: /opsgenie/create-alert
+            Method: post      
+            RestApiId: !Ref Api    
+            
+  SendOpsGenieAlertEmail:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: send-opsgenie-alert-email
+      Description: Lambda to send an OpsGenie alert email
+      CodeUri: app/opsgenie  
+      Handler: send-opsgenie-alert-email.lambda_handler 
+      Events:
+        SendOpsGenieAlertEmail:
+          Type: Api
+          Properties:
+            Path: /opsgenie/send-alert-email
             Method: post      
             RestApiId: !Ref Api             
 Outputs:

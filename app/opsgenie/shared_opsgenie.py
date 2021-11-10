@@ -23,9 +23,10 @@ def get_value_from_parameter_store(parameter_name):
 def get_alert_api():
     conf = opsgenie_sdk.configuration.Configuration()
 
-    OPSGENIE_API_KEY = get_value_from_parameter_store('OPSGENIE_API_KEY')
+    OPSGENIE_API_KEY_PARAM = os.environ['OPSGENIE_API_KEY_PARAM']
+    OPSGENIE_API_KEY_VALUE = get_value_from_parameter_store(OPSGENIE_API_KEY_PARAM)
 
-    conf.api_key['Authorization'] = OPSGENIE_API_KEY
+    conf.api_key['Authorization'] = OPSGENIE_API_KEY_VALUE
 
     api_client = opsgenie_sdk.api_client.ApiClient(configuration=conf)
     alert_api = opsgenie_sdk.AlertApi(api_client=api_client)

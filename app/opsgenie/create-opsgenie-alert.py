@@ -14,25 +14,22 @@ def lambda_handler(event, context):
     if not event or not event["body"]:
         return error_response("Request body is not specified. Please pass in the OpsGenie details in the request body")     
 
-
+    print("event:", event)
+    body = event["body"]
+    print("body:", body)
     request_body = json.loads(event["body"])
     print("request_body:", request_body)
 
     create_alert_payload_dict = populate_create_alert_payload(request_body)
-    print("create_alert_payload_dict:", create_alert_payload_dict)
+
     error_messages = validate_create_alert_payload(create_alert_payload_dict)
-    print("error_messages:", error_messages)
-    print("len(error_messages):", len(error_messages))
     if len(error_messages) > 0:
-        print("Here 1")
         return error_response(json.dumps(error_messages, default=str))
 
-    print("Here 2:", create_alert_payload_dict)
     body = opsgenie_sdk.CreateAlertPayload(**create_alert_payload_dict)
-    print("body:", body)
     try:
         create_response = alert_api.create_alert(create_alert_payload=body)
-        print("Create response:", create_response)
+        print("create_response:", create_response)
         return success_response(json.dumps(create_response, default=str))
     except ApiException as err:
         print("Exception when calling AlertApi->create_alert: %s\n" % err)
