@@ -33,16 +33,11 @@ def lambda_handler(event, context):
         return error_response("Request body is not specified. Please pass in the dimensions in the request body")     
 
     dimensions = json.loads(event["body"])
-    print("Event")
-    print(event)
-    print("namespace")
-    print(namespace)
-    print("metricName")
-    print(metricName)
-    print("dimensions")
-    print(dimensions)        
-    print("queryStringParameters")
-    print(event["queryStringParameters"])
+    print("Event:", event)
+    print("namespace:", namespace)
+    print("metricName:", metricName)
+    print("dimensions:",dimensions)        
+    print("queryStringParameters:", event["queryStringParameters"])
 
     if not queryStringParameters:
         stat = 'Sum'
@@ -81,6 +76,6 @@ def lambda_handler(event, context):
         EndTime=datetime(tomorrow.year, tomorrow.month, tomorrow.day),
         ScanBy=scanBy,
     )
-    print(response)
+    print("Response:", response)
 
     return success_response(json.dumps(response, indent=4, sort_keys=False, default=str))

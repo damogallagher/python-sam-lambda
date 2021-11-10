@@ -147,6 +147,50 @@ Resources:
             Path: /sagemaker/describe-training-job
             Method: get      
             RestApiId: !Ref Api 
+       
+  FetchOpsGenieAlerts:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: fetch-opsgenie-alerts
+      Description: Lambda to fetch all OpsGenie alerts
+      CodeUri: app/opsgenie  
+      Handler: fetch-opsgenie-alerts.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: OpsGeniePermissions
+          Effect: Allow
+          Action:
+          - "ssm:GetParameter"
+          Resource: '*'      
+      Events:
+        CreateOpsGenieAlert:
+          Type: Api
+          Properties:
+            Path: /opsgenie/fetch-alerts
+            Method: get      
+            RestApiId: !Ref Api      
+            
+  CreateOpsGenieAlert:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: create-opsgenie-alert
+      Description: Lambda to create an OpsGenie alert
+      CodeUri: app/opsgenie  
+      Handler: create-opsgenie-alert.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: OpsGeniePermissions
+          Effect: Allow
+          Action:
+          - "ssm:GetParameter"
+          Resource: '*'      
+      Events:
+        CreateOpsGenieAlert:
+          Type: Api
+          Properties:
+            Path: /opsgenie/create-alert
+            Method: post      
+            RestApiId: !Ref Api             
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM

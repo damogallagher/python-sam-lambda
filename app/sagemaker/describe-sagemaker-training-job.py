@@ -14,5 +14,5 @@ def lambda_handler(event, context):
     trainingJobName = queryStringParameters['trainingJobName']
 
     response = client.describe_training_job(TrainingJobName=trainingJobName)   
-    print(response)
+    print("Response:", response)
     return success_response(json.dumps(response, indent=4, sort_keys=False, default=str))

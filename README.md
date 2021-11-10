@@ -22,7 +22,7 @@ sam delete --no-prompts --profile csx
 
 **Purposes:** Lists all the namespaces that exist within the cloudwatch metrics for the current aws region
 
-**Sample Endpoint:** https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/list-cloudwatch-namespaces
+**Sample Endpoint:** https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/list-cloudwatch-namespaces
 
 **/list-cloudwatch-metrics**
 
@@ -33,7 +33,7 @@ namespace - retrieved from list-cloudwatch-namespaces call
 
 **Purposes:** Get all available metrics for a namespace. This returns the metrics as well as a list of all the dimensions for that metric
 
-**Sample Endpoint:** https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/list-cloudwatch-metrics?namespace=AmazonMWAA
+**Sample Endpoint:** https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/list-cloudwatch-metrics?namespace=AmazonMWAA
 
 **/fetch-cloudwatch-metrics**
 
@@ -45,9 +45,9 @@ metricName - retrieved from the list-cloudwatch-metrics call
 
 **Body:**  The body is the dimension we want to retrieve. The list-cloudwatch-metrics call returns a list of dimensions for a metric and namespace combination. We need to pass in 1 of these metrics
 
-**Sample Endpoint:** https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=CriticalSectionBusy
+**Sample Endpoint:** https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=CriticalSectionBusy
 
-**Sample Endpoint:** https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=CriticalSectionBusy&period=60&stat=Sum&label=TempLabel&scanBy=TimestampDescending&previousDays=0 
+**Sample Endpoint:** https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=CriticalSectionBusy&period=60&stat=Sum&label=TempLabel&scanBy=TimestampDescending&previousDays=0 
 
 ## Sample Body  
 ```
@@ -85,7 +85,7 @@ previousDays | No| 0 | Number of days to retrieve metrics for - 0 is current day
 
 **Purposes:** Lists all the training jobs that existin in AWS for the current aws region
 
-**Sample Endpoint:** https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/sagemaker/list-training-jobs
+**Sample Endpoint:** https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/sagemaker/list-training-jobs
 
 **/sagemaker/describe-training-job**
 
@@ -96,4 +96,51 @@ trainingJobName - the trainingJobName retrieved in the list training jobs call
 
 **Purposes:** Get the details from a specific training job
 
-**Sample Endpoint:** https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/sagemaker/describe-training-job?trainingJobName=mxnet-training-2021-11-01-05-23-15-483
+**Sample Endpoint:** https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/sagemaker/describe-training-job?trainingJobName=mxnet-training-2021-11-01-05-23-15-483
+
+# OpsGenie Endpoints
+
+**/opsgenie/fetch-alerts**
+
+**Type:** GET
+
+**Purposes:** Fetchs all alerts for the currently logged in api key
+
+**Sample Endpoint:** https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/opsgenie/fetch-alerts
+
+**/opsgenie/create-alert**
+
+**Type:** POST
+
+**Body:**  The body is the details of the alert that need to be created
+
+**Sample Endpoint:** https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/opsgenie/create-alert
+
+## Sample Body
+**Note:** Message is the **only** required body attribute  
+```
+{
+	"message": "Sample Message",
+	"alias": "python_sample_alias",
+	"description": "Sample of SDK v2 description",
+	"responders": [{
+		"name": "Name",
+		"type": "team"
+	}],
+	"visible_to": [{
+		"name": "Sample name",
+		"type": "team"
+	}],
+	"actions": ["Restart", "AnExampleAction"],
+	"tags": ["OverwriteQuietHours"],
+	"details": {
+		"details key1": "value1",
+		"details key2": "value2"
+	},
+	"entity": "An example entity",
+  "source": "source"
+	"priority": "P3",
+  "user": "user",
+  "note": "note"
+}
+```

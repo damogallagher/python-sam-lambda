@@ -10,7 +10,7 @@ def lambda_handler(event, context):
     paginator = client.get_paginator('list_training_jobs')
     training_jobs = []
     for response in paginator.paginate():
-        print(response)
+        print("Response:", response)
         for trainingJobSummary in response['TrainingJobSummaries']:
             training_jobs.append(trainingJobSummary)       
     
