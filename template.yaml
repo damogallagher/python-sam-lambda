@@ -148,6 +148,50 @@ Resources:
             Method: get      
             RestApiId: !Ref Api 
        
+  ListSagemakerEndpoints:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: list-sagemaker-endpoints
+      Description: Lambda to list the Sagemaker endpoints
+      CodeUri: app/sagemaker  
+      Handler: list-sagemaker-endpoints.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: SageMakerPermissions
+          Effect: Allow
+          Action:
+          - "sagemaker:ListEndpoints"
+          Resource: '*'      
+      Events:
+        ListSagemakerEndpoints:
+          Type: Api
+          Properties:
+            Path: /sagemaker/list-endpoints
+            Method: get      
+            RestApiId: !Ref Api 
+
+  InvokeSagemakerEndpoint:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: invoke-sagemaker-endpoint
+      Description: Lambda to invoke a Sagemaker endpoint
+      CodeUri: app/sagemaker  
+      Handler: invoke-sagemaker-endpoint.lambda_handler
+      Policies:
+      - Statement:
+        - Sid: SageMakerPermissions
+          Effect: Allow
+          Action:
+          - "sagemaker:InvokeEndpoint"
+          Resource: '*'      
+      Events:
+        InvokeSagemakerEndpoint:
+          Type: Api
+          Properties:
+            Path: /sagemaker/invoke-endpoint
+            Method: get      
+            RestApiId: !Ref Api 
+
   FetchOpsGenieAlerts:
     Type: AWS::Serverless::Function
     Properties:
@@ -198,10 +242,10 @@ Resources:
             Method: post      
             RestApiId: !Ref Api    
             
-  SendOpsGenieAlertEmail:
+  SendOpsGenieAlertEmailNOTWORKING:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: send-opsgenie-alert-email
+      FunctionName: send-opsgenie-alert-email-not-working
       Description: Lambda to send an OpsGenie alert email
       CodeUri: app/opsgenie  
       Handler: send-opsgenie-alert-email.lambda_handler 
@@ -209,7 +253,7 @@ Resources:
         SendOpsGenieAlertEmail:
           Type: Api
           Properties:
-            Path: /opsgenie/send-alert-email
+            Path: /opsgenie/send-alert-email-NOT_WORKING
             Method: post      
             RestApiId: !Ref Api             
 Outputs:

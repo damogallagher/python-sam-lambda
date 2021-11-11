@@ -83,7 +83,7 @@ previousDays | No| 0 | Number of days to retrieve metrics for - 0 is current day
 
 **Type:** GET
 
-**Purposes:** Lists all the training jobs that existin in AWS for the current aws region
+**Purposes:** Lists all the training jobs that exist in AWS for the current aws region
 
 **Sample Endpoint:** https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/sagemaker/list-training-jobs
 
@@ -97,6 +97,14 @@ trainingJobName - the trainingJobName retrieved in the list training jobs call
 **Purposes:** Get the details from a specific training job
 
 **Sample Endpoint:** https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/sagemaker/describe-training-job?trainingJobName=mxnet-training-2021-11-01-05-23-15-483
+
+**/sagemaker/list-endpoints**
+
+**Type:** GET
+
+**Purposes:** Lists all the endpoints exist in AWS for the current aws region
+
+**Sample Endpoint:** https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/sagemaker/list-endpoints
 
 # OpsGenie Endpoints
 
