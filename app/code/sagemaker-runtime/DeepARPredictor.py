@@ -16,7 +16,7 @@ def series_to_jsonline(ts, cat=None):
 # See https://sagemaker-examples.readthedocs.io/en/latest/introduction_to_amazon_algorithms/deepar_synthetic/deepar_synthetic.html
 
 
-class DeepARPredictor(sagemaker.predictor.RealTimePredictor):
+class DeepARPredictor(sagemaker.predictor.Predictor):
     def set_prediction_parameters(self, freq, prediction_length):
         """Set the time frequency and prediction length parameters. This method **must** be called
         before being able to use `predict`.
