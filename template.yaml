@@ -49,10 +49,10 @@ Resources:
     Metadata:
      BuildMethod: python3.9
 
-  PandasLayer:
+  SagemakerLayer:
     Type: AWS::Serverless::LayerVersion
     Properties:
-      ContentUri: app/layers/pandas
+      ContentUri: app/layers/sagemaker
       CompatibleRuntimes:
         - python3.9
     Metadata:
@@ -227,7 +227,8 @@ Resources:
             Method: get      
             RestApiId: !Ref Api 
       Layers:
-       - !Ref PandasLayer
+       - !Ref SagemakerLayer
+
 
   FetchOpsGenieAlerts:
     Type: AWS::Serverless::Function
