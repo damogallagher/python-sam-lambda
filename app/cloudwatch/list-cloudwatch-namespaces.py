@@ -1,7 +1,7 @@
-from shared_cloudwatch import  cloudwatch_client, success_response
+from common_code import  boto3_client, success_response
 import json
 
-client = cloudwatch_client()
+client = boto3_client('cloudwatch')
 
 # List Cloudwatch Namespaces
 # List all the namespaces currently published in cloudwatch metrics

@@ -15,6 +15,8 @@ Globals:
         RETRIES_MAX_ATTEMPTS: 10
         RETRIES_MODE: 'standard'
         EXEC_ENV: !Ref ExecEnv
+    Layers:
+      - !Ref CommonCodeLayer
 
 Parameters:
   ExecEnv:
@@ -37,6 +39,33 @@ Resources:
         AllowHeaders: "'*'"
         AllowOrigin: "'*'"
         MaxAge: "'600'"
+
+  CommonCodeLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: layers/common_code_layer
+      CompatibleRuntimes:
+        - python3.9
+    Metadata:
+     BuildMethod: python3.9
+
+  PandasLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: layers/pandas
+      CompatibleRuntimes:
+        - python3.9
+    Metadata:
+     BuildMethod: python3.9
+
+  OpsGenieLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: layers/opsgenie
+      CompatibleRuntimes:
+        - python3.9
+    Metadata:
+     BuildMethod: python3.9
 
   ListCloudWatchNamespacesFunction:
     Type: AWS::Serverless::Function
@@ -175,7 +204,7 @@ Resources:
     Properties:
       FunctionName: invoke-sagemaker-endpoint
       Description: Lambda to invoke a Sagemaker endpoint
-      CodeUri: app/sagemaker  
+      CodeUri: app/sagemaker-runtime  
       Handler: invoke-sagemaker-endpoint.lambda_handler
       Policies:
       - Statement:
@@ -183,7 +212,13 @@ Resources:
           Effect: Allow
           Action:
           - "sagemaker:InvokeEndpoint"
-          Resource: '*'      
+          Resource: '*'     
+      - Statement:
+        - Sid: SageMakerS3Permissions
+          Effect: Allow
+          Action:
+          - "s3:GetObject"
+          Resource: '*'              
       Events:
         InvokeSagemakerEndpoint:
           Type: Api
@@ -191,6 +226,8 @@ Resources:
             Path: /sagemaker/invoke-endpoint
             Method: get      
             RestApiId: !Ref Api 
+      Layers:
+       - !Ref PandasLayer
 
   FetchOpsGenieAlerts:
     Type: AWS::Serverless::Function
@@ -215,7 +252,9 @@ Resources:
           Properties:
             Path: /opsgenie/fetch-alerts
             Method: get      
-            RestApiId: !Ref Api      
+            RestApiId: !Ref Api  
+      Layers:
+        - !Ref OpsGenieLayer    
             
   CreateOpsGenieAlert:
     Type: AWS::Serverless::Function
@@ -241,6 +280,8 @@ Resources:
             Path: /opsgenie/create-alert
             Method: post      
             RestApiId: !Ref Api    
+      Layers:
+        - !Ref OpsGenieLayer               
             
   SendOpsGenieAlertEmailNOTWORKING:
     Type: AWS::Serverless::Function
@@ -255,7 +296,10 @@ Resources:
           Properties:
             Path: /opsgenie/send-alert-email-NOT_WORKING
             Method: post      
-            RestApiId: !Ref Api             
+            RestApiId: !Ref Api 
+      Layers:
+        - !Ref OpsGenieLayer   
+                                
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM

@@ -2,8 +2,9 @@ import boto3
 from botocore.config import Config
 import os
 
-def sagemaker_runtime_client():
-    # Create Sagemaker runtime client 
+#For working in layers - see https://aws.plainenglish.io/a-practical-guide-surviving-aws-sam-part-3-lambda-layers-8a55eb5d2cbe
+def boto3_client(service_name):
+    # Create CloudWatch client
     client_config = Config(
         region_name = os.environ['REGION_NAME'],
         signature_version = os.environ['SIGNATURE_VERSION'],
@@ -13,7 +14,15 @@ def sagemaker_runtime_client():
         }
     )
 
-    return boto3.client('sagemaker-runtime', config=client_config)
+    return boto3.client(service_name, config=client_config)
+
+def boto3_s3_client():
+    region = os.environ['REGION_NAME']
+    print("region:", region)
+    # Create Sagemaker runtime client 
+    client_config = Config(region_name = os.environ['REGION_NAME'])
+    print("client_config:", client_config)
+    return boto3.client('s3', config=client_config)
 
 def error_response(message):
     print(message)

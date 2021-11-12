@@ -1,7 +1,7 @@
 import json
-from shared_sagemaker import success_response, sagemaker_client
+from common_code import  boto3_client, success_response
 
-client = sagemaker_client()
+client = boto3_client('sagemaker')
 
 # List Sagemaker Endpoints
 # See https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sagemaker.html#SageMaker.Paginator.ListEndpoints

@@ -1,8 +1,8 @@
-from shared_cloudwatch import  cloudwatch_client, error_response, success_response
+from common_code import  boto3_client, error_response, success_response
 import json
 from datetime import date, timedelta, datetime
 
-client = cloudwatch_client()
+client = boto3_client('cloudwatch')
 
 # Get Cloudwatch Metrics
 # Pass in namespace you want as a query param named namespace

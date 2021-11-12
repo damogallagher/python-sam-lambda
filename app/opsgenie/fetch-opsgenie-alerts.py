@@ -1,5 +1,6 @@
 import json
-from shared_opsgenie import get_alert_api, success_response, error_response
+from shared_opsgenie import get_alert_api
+from common_code import  error_response, success_response
 from opsgenie_sdk.rest import ApiException
 
 alert_api = get_alert_api()

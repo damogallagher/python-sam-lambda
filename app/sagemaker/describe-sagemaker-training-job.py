@@ -1,7 +1,7 @@
 import json
-from shared_sagemaker import success_response, error_response, sagemaker_client
+from common_code import  boto3_client, error_response, success_response
 
-client = sagemaker_client()
+client = boto3_client('sagemaker')
 
 # Describe Sagemaker training jobs
 # See https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sagemaker.html#SageMaker.Client.describe_training_job
