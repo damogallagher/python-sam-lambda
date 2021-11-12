@@ -43,7 +43,7 @@ Resources:
   CommonCodeLayer:
     Type: AWS::Serverless::LayerVersion
     Properties:
-      ContentUri: layers/common_code_layer
+      ContentUri: app/layers/common_code_layer
       CompatibleRuntimes:
         - python3.9
     Metadata:
@@ -52,7 +52,7 @@ Resources:
   PandasLayer:
     Type: AWS::Serverless::LayerVersion
     Properties:
-      ContentUri: layers/pandas
+      ContentUri: app/layers/pandas
       CompatibleRuntimes:
         - python3.9
     Metadata:
@@ -61,7 +61,7 @@ Resources:
   OpsGenieLayer:
     Type: AWS::Serverless::LayerVersion
     Properties:
-      ContentUri: layers/opsgenie
+      ContentUri: app/layers/opsgenie
       CompatibleRuntimes:
         - python3.9
     Metadata:
@@ -72,7 +72,7 @@ Resources:
     Properties:
       FunctionName: list-cloudwatch-namespaces
       Description: Lambda to list CloudWatch namespaces  
-      CodeUri: app/cloudwatch    
+      CodeUri: app/code/cloudwatch    
       Handler: list-cloudwatch-namespaces.lambda_handler
       Policies:
       - Statement:
@@ -94,7 +94,7 @@ Resources:
     Properties:
       FunctionName: list-cloudwatch-metrics
       Description: Lambda to list CloudWatch metrics      
-      CodeUri: app/cloudwatch  
+      CodeUri: app/code/cloudwatch  
       Handler: list-cloudwatch-metrics.lambda_handler
       Policies:
       - Statement:
@@ -116,7 +116,7 @@ Resources:
     Properties:
       FunctionName: fetch-cloudwatch-metrics
       Description: Lambda to fetch CloudWatch metrics
-      CodeUri: app/cloudwatch  
+      CodeUri: app/code/cloudwatch  
       Handler: fetch-cloudwatch-metrics.lambda_handler
       Policies:
       - Statement:
@@ -138,7 +138,7 @@ Resources:
     Properties:
       FunctionName: list-sagemaker-training-jobs
       Description: Lambda to list the Sagemaker training jobs
-      CodeUri: app/sagemaker  
+      CodeUri: app/code/sagemaker  
       Handler: list-sagemaker-training-jobs.lambda_handler
       Policies:
       - Statement:
@@ -160,7 +160,7 @@ Resources:
     Properties:
       FunctionName: describe-sagemaker-training-job
       Description: Lambda to describe a Sagemaker training job
-      CodeUri: app/sagemaker  
+      CodeUri: app/code/sagemaker  
       Handler: describe-sagemaker-training-job.lambda_handler
       Policies:
       - Statement:
@@ -182,7 +182,7 @@ Resources:
     Properties:
       FunctionName: list-sagemaker-endpoints
       Description: Lambda to list the Sagemaker endpoints
-      CodeUri: app/sagemaker  
+      CodeUri: app/code/sagemaker  
       Handler: list-sagemaker-endpoints.lambda_handler
       Policies:
       - Statement:
@@ -204,7 +204,7 @@ Resources:
     Properties:
       FunctionName: invoke-sagemaker-endpoint
       Description: Lambda to invoke a Sagemaker endpoint
-      CodeUri: app/sagemaker-runtime  
+      CodeUri: app/code/sagemaker-runtime  
       Handler: invoke-sagemaker-endpoint.lambda_handler
       Policies:
       - Statement:
@@ -234,7 +234,7 @@ Resources:
     Properties:
       FunctionName: fetch-opsgenie-alerts
       Description: Lambda to fetch all OpsGenie alerts
-      CodeUri: app/opsgenie  
+      CodeUri: app/code/opsgenie  
       Handler: fetch-opsgenie-alerts.lambda_handler
       Environment:
          Variables:
@@ -261,7 +261,7 @@ Resources:
     Properties:
       FunctionName: create-opsgenie-alert
       Description: Lambda to create an OpsGenie alert
-      CodeUri: app/opsgenie  
+      CodeUri: app/code/opsgenie  
       Handler: create-opsgenie-alert.lambda_handler
       Environment:
          Variables:
@@ -288,7 +288,7 @@ Resources:
     Properties:
       FunctionName: send-opsgenie-alert-email-not-working
       Description: Lambda to send an OpsGenie alert email
-      CodeUri: app/opsgenie  
+      CodeUri: app/code/opsgenie  
       Handler: send-opsgenie-alert-email.lambda_handler 
       Events:
         SendOpsGenieAlertEmail:
