@@ -14,10 +14,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/list-cloudwatch-namespaces",
+							"raw": "https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/list-cloudwatch-namespaces",
 							"protocol": "https",
 							"host": [
-								"d5un4aacsl",
+								"i0jr8migw7",
 								"execute-api",
 								"us-east-1",
 								"amazonaws",
@@ -37,10 +37,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/list-cloudwatch-metrics?namespace=AmazonMWAA",
+							"raw": "https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/list-cloudwatch-metrics?namespace=AmazonMWAA",
 							"protocol": "https",
 							"host": [
-								"d5un4aacsl",
+								"i0jr8migw7",
 								"execute-api",
 								"us-east-1",
 								"amazonaws",
@@ -76,10 +76,10 @@
 							"raw": "[\n                {\n                    \"Name\": \"Function\",\n                    \"Value\": \"Scheduler\"\n                },\n                {\n                    \"Name\": \"Environment\",\n                    \"Value\": \"csx-nonprod-dataops\"\n                }\n            ]"
 						},
 						"url": {
-							"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=CriticalSectionBusy",
+							"raw": "https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=CriticalSectionBusy",
 							"protocol": "https",
 							"host": [
-								"d5un4aacsl",
+								"i0jr8migw7",
 								"execute-api",
 								"us-east-1",
 								"amazonaws",
@@ -119,10 +119,10 @@
 							"raw": "[\n                {\n                    \"Name\": \"Function\",\n                    \"Value\": \"Scheduler\"\n                },\n                {\n                    \"Name\": \"Environment\",\n                    \"Value\": \"csx-nonprod-dataops\"\n                }\n            ]"
 						},
 						"url": {
-							"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=CriticalSectionBusy&period=60&stat=Sum&label=TempLabel&scanBy=TimestampDescending&previousDays=0 ",
+							"raw": "https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/fetch-cloudwatch-metrics?namespace=AmazonMWAA&metricName=CriticalSectionBusy&period=60&stat=Sum&label=TempLabel&scanBy=TimestampDescending&previousDays=0 ",
 							"protocol": "https",
 							"host": [
-								"d5un4aacsl",
+								"i0jr8migw7",
 								"execute-api",
 								"us-east-1",
 								"amazonaws",
@@ -177,10 +177,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/sagemaker/list-training-jobs",
+							"raw": "https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/sagemaker/list-training-jobs",
 							"protocol": "https",
 							"host": [
-								"d5un4aacsl",
+								"i0jr8migw7",
 								"execute-api",
 								"us-east-1",
 								"amazonaws",
@@ -201,10 +201,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://d5un4aacsl.execute-api.us-east-1.amazonaws.com/Prod/sagemaker/describe-training-job?trainingJobName=mxnet-training-2021-11-01-05-23-15-483",
+							"raw": "https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/sagemaker/describe-training-job?trainingJobName=mxnet-training-2021-11-01-05-23-15-483",
 							"protocol": "https",
 							"host": [
-								"d5un4aacsl",
+								"i0jr8migw7",
 								"execute-api",
 								"us-east-1",
 								"amazonaws",
@@ -220,6 +220,151 @@
 									"key": "trainingJobName",
 									"value": "mxnet-training-2021-11-01-05-23-15-483"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list-endpoints",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/sagemaker/list-endpoints",
+							"protocol": "https",
+							"host": [
+								"i0jr8migw7",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"sagemaker",
+								"list-endpoints"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "invoke-endpoint",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/sagemaker/invoke-endpoint?endpoint=DEMO-deepar-2021-11-14-18-05-19-189?od=AF01",
+							"protocol": "https",
+							"host": [
+								"i0jr8migw7",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"sagemaker",
+								"invoke-endpoint"
+							],
+							"query": [
+								{
+									"key": "endpoint",
+									"value": "DEMO-deepar-2021-11-14-18-05-19-189?od=AF01"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OpsGenie",
+			"item": [
+				{
+					"name": "fetch-alerts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/opsgenie/fetch-alerts",
+							"protocol": "https",
+							"host": [
+								"i0jr8migw7",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"opsgenie",
+								"fetch-alerts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-alert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"message\": \"Sample Message 2c\",\n\t\"alias\": \"python_sample_alias22\",\n\t\"description\": \"Sample of SDK v2 description\",\n\t\"responders\": [{\n\t\t\"name\": \"Name\",\n\t\t\"type\": \"team\"\n\t}],\n\t\"visible_to\": [{\n\t\t\"name\": \"Sample name\",\n\t\t\"type\": \"team\"\n\t}],\n\t\"actions\": [\"Restart\", \"AnExampleAction\"],\n\t\"tags\": [\"OverwriteQuietHours\"],\n\t\"details\": {\n\t\t\"details key1\": \"value1\",\n\t\t\"details key2\": \"value2\"\n\t},\n\t\"entity\": \"An example entity\",\n  \"source\": \"source\",\n  \"priority\": \"P3\",\n  \"user\": \"user\",\n  \"note\": \"note\"\n}"
+						},
+						"url": {
+							"raw": "https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/opsgenie/create-alert",
+							"protocol": "https",
+							"host": [
+								"i0jr8migw7",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"opsgenie",
+								"create-alert"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "send-alert-email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"message\": \"Sample Message 2c\",\n\t\"alias\": \"python_sample_alias22\",\n\t\"description\": \"Sample of SDK v2 description\",\n\t\"responders\": [{\n\t\t\"name\": \"Name\",\n\t\t\"type\": \"team\"\n\t}],\n\t\"visible_to\": [{\n\t\t\"name\": \"Sample name\",\n\t\t\"type\": \"team\"\n\t}],\n\t\"actions\": [\"Restart\", \"AnExampleAction\"],\n\t\"tags\": [\"OverwriteQuietHours\"],\n\t\"details\": {\n\t\t\"details key1\": \"value1\",\n\t\t\"details key2\": \"value2\"\n\t},\n\t\"entity\": \"An example entity\",\n  \"source\": \"source\",\n  \"priority\": \"P3\",\n  \"user\": \"user\",\n  \"note\": \"note\"\n}"
+						},
+						"url": {
+							"raw": "https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/opsgenie/send-alert-email",
+							"protocol": "https",
+							"host": [
+								"i0jr8migw7",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"opsgenie",
+								"send-alert-email"
 							]
 						}
 					},

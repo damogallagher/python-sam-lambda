@@ -16,14 +16,6 @@ def boto3_client(service_name):
 
     return boto3.client(service_name, config=client_config)
 
-def boto3_s3_client():
-    region = os.environ['REGION_NAME']
-    print("region:", region)
-    # Create Sagemaker runtime client 
-    client_config = Config(region_name = os.environ['REGION_NAME'])
-    print("client_config:", client_config)
-    return boto3.client('s3', config=client_config)
-
 def error_response(message):
     print(message)
     return {
