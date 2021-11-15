@@ -106,6 +106,20 @@ trainingJobName - the trainingJobName retrieved in the list training jobs call
 
 **Sample Endpoint:** https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/sagemaker/list-endpoints
 
+**/sagemaker/invoke-endpoint**
+
+**Type:** GET
+
+**Query Params:** 
+endpoint - the endpoint retrieved in the list endpoints call
+
+od - the od value to retrieve from the dataset
+
+**Purposes:** Invokes an endpoint in AWS for the current region
+
+**Sample Endpoint:** https://i0jr8migw7.execute-api.us-east-1.amazonaws.com/Prod/sagemaker/invoke-endpoint?endpoint=DEMO-deepar-2021-11-14-18-05-19-189&od=AF01
+
+
 # OpsGenie Endpoints
 
 **/opsgenie/fetch-alerts**
